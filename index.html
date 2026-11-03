@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>EMERGIFY – Smarter Care, Faster Response</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{--bg:#f2f6f9;--card:#fff;--ink:#0b2239;--mut:#5b6f82;--line:#dbe4eb;--navy:#0a2540;--teal:#0fb5b0;--teald:#087f7c;--red:#d93025;--soft:#e7f7f6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08131f;--card:#0f2033;--ink:#e6eff7;--mut:#93a8bb;--line:#1f3550;--soft:#0e3038}}
+:root[data-theme="dark"]{--bg:#08131f;--card:#0f2033;--ink:#e6eff7;--mut:#93a8bb;--line:#1f3550;--soft:#0e3038}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+h1,h2,h3{margin:0 0 .5em;line-height:1.2}a{color:var(--teald)}
+.btn{background:var(--teal);color:#032;border:0;border-radius:10px;padding:9px 16px;font:inherit;font-weight:600;cursor:pointer;transition:.15s}
+.btn:hover{filter:brightness(1.08)}.btn.s{padding:5px 10px;font-size:13px}.btn.o{background:transparent;border:1px solid var(--line);color:var(--ink)}.btn.d{background:var(--red);color:#fff}.btn.n{background:var(--navy);color:#fff}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 2px 10px rgba(10,37,64,.06)}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:.06em;font-size:20px}.logo i{width:30px;height:30px;border-radius:9px;background:var(--teal);display:grid;place-items:center;color:var(--navy);font-style:normal;font-size:20px}
+.hero{background:var(--navy);color:#fff;padding:20px 0 70px}.hero nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:60px}
+.hero h1{font-size:clamp(32px,6vw,54px);max-width:700px}.hero p{max-width:600px;color:#b8cbdc;font-size:17px}
+.sec{padding:44px 0}.note{background:var(--soft);border-left:4px solid var(--teal);padding:10px 14px;border-radius:8px;color:var(--ink);font-size:14px;margin:12px 0}
+.warn{border-left-color:#e8710a}
+.shell{display:flex;min-height:100vh}.side{width:230px;background:var(--navy);color:#cfe0ee;padding:16px 10px;flex:none;position:sticky;top:0;height:100vh;overflow:auto}
+.side a{display:block;padding:9px 12px;border-radius:9px;color:#cfe0ee;text-decoration:none;cursor:pointer;margin:2px 0}.side a:hover{background:#12355a}.side a.on{background:var(--teal);color:#032;font-weight:700}
+.side .logo{color:#fff;padding:4px 8px 16px}.main{flex:1;min-width:0;padding:20px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}.menu{display:none}
+.stat b{font-size:28px;display:block}.stat span{color:var(--mut);font-size:13px}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--mut);font-weight:600}
+.b{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:700;color:var(--c);border:1px solid var(--c);background:color-mix(in srgb,var(--c) 12%,transparent)}
+.bar{display:flex;align-items:center;gap:8px;margin:7px 0;font-size:13px}.bar em{width:130px;font-style:normal;color:var(--mut);flex:none}.bar div{height:16px;border-radius:5px;background:var(--c);min-width:2px;transition:width .4s}.bar span{font-weight:700}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+input,select,textarea{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);width:100%}.row input,.row select{width:auto}
+label{display:block;font-size:13px;color:var(--mut);margin:10px 0 3px}
+#m{position:fixed;inset:0;background:rgba(5,15,28,.6);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}#m.on{display:flex}
+#m .card{width:100%;max-width:520px;max-height:90vh;overflow:auto}
+#t{position:fixed;right:16px;bottom:16px;display:grid;gap:8px;z-index:60}#t div{background:var(--navy);color:#fff;padding:10px 16px;border-radius:10px;border-left:4px solid var(--teal)}#t .er{border-color:var(--red)}
+.bed{text-align:center}.bed.occ{border-color:var(--red)}.gantt{display:flex;margin:10px 0;overflow-x:auto}.gantt div{padding:10px 4px;text-align:center;color:#032;font-weight:700;font-size:13px;border:1px solid var(--card);background:var(--teal);flex:none}.gantt .idle{background:var(--line);color:var(--mut)}
+.empty{text-align:center;color:var(--mut);padding:28px}pre{background:var(--navy);color:#d6ecf5;padding:12px;border-radius:10px;overflow-x:auto;font:12.5px/1.5 Consolas,Menlo,monospace;margin:8px 0;white-space:pre}.tl{border-left:3px solid var(--teal);padding-left:12px;margin:6px 0 6px 4px}.tl small{color:var(--mut)}
+@media (max-width:860px){.side{position:fixed;left:-250px;z-index:40;transition:.2s;height:100%}.side.on{left:0}.menu{display:inline-block}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<div id="app"></div><div id="m"></div><div id="t" aria-live="polite"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const KEY='emergify_v1',U={1:['Critical','#d93025'],2:['High','#e8710a'],3:['Moderate','#b78500'],4:['Low','#0f9d7a']};
+const ST=['Waiting','Under Examination','Treatment in Progress','Recovered','Discharged'],SC={'Waiting':'#b78500','Under Examination':'#2f6fed','Treatment in Progress':'#0b8f8b','Recovered':'#0f9d7a','Discharged':'#6b7c8d','Available':'#0f9d7a','Busy':'#e8710a','Unavailable':'#6b7c8d','Occupied':'#d93025'};
+const bd=(t,c)=>`<span class="b" style="--c:${c||SC[t]||'#6b7c8d'}">${esc(t)}</span>`,ub=u=>bd(U[u][0],U[u][1]);
+const fmt=d=>new Date(d).toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'}),loc=d=>new Date(new Date(d)-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,16);
+function seed(){const n=Date.now(),m=x=>new Date(n-x*6e4).toISOString();let i=1000;
+const P=(name,age,g,sym,u,ago,st,doc,bed)=>({id:'P-'+(++i),name,age,gender:g,contact:'98'+(10000000+i*7919%89999999),symptoms:sym,urgency:u,arrival:m(ago),status:st,doctor:doc||'',bed:bed||'',notes:[],history:[{t:m(ago),x:'Registered with status Waiting'}]});
+const p=[P('Aarav Sharma',34,'Male','Chest discomfort',1,25,'Waiting'),P('Meera Kapoor',58,'Female','Fall injury',2,50,'Waiting'),P('Rohan Gill',22,'Male','Sprained ankle',4,70,'Waiting'),P('Simran Kaur',41,'Female','High fever',3,95,'Under Examination','D-01','B-01'),P('Kabir Mehta',67,'Male','Breathing difficulty',1,150,'Treatment in Progress','D-02','B-02'),P('Anaya Verma',9,'Female','Minor burn',3,1500,'Recovered'),P('Vikram Nair',45,'Male','Food poisoning',3,2900,'Discharged'),P('Isha Rao',30,'Female','Migraine',4,4400,'Discharged')];
+const doctors=[['Dr. Neha Arora','Emergency Medicine','Busy','P-1004'],['Dr. Samar Bedi','Cardiology','Busy','P-1005'],['Dr. Tara Joshi','Orthopedics','Available',''],['Dr. Imran Khan','General Medicine','Unavailable','']].map((d,k)=>({id:'D-0'+(k+1),name:d[0],specialty:d[1],contact:'97000000'+(10+k),status:d[2],patient:d[3]}));
+const beds=[['General','Standard'],['ICU','ICU'],['General','Standard'],['General','Standard'],['Trauma','Standard'],['ICU','ICU'],['Pediatric','Standard'],['Trauma','Standard']].map((b,k)=>({id:'B-0'+(k+1),ward:b[0],type:b[1],pid:k==0?'P-1004':k==1?'P-1005':'',status:k<2?'Occupied':'Available'}));
+p[3].history.push({t:m(90),x:'Assigned Dr. Neha Arora; Bed B-01'});p[4].history.push({t:m(140),x:'Assigned Dr. Samar Bedi; Bed B-02'});
+return{patients:p,doctors,beds,log:['System initialised with sample data'],n:{p:i,d:4,b:8}}}
+let S;try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}if(!S)S=seed();
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+let auth=false;try{auth=localStorage.getItem('emergify_auth')=='1'}catch(e){}
+const find=(a,id)=>S[a].find(x=>x.id==id),pn=id=>{const p=find('patients',id);return p?p.name:'—'},dn=id=>{const d=find('doctors',id);return d?d.name:'—'};
+const prio=()=>S.patients.filter(p=>p.status=='Waiting').sort((a,b)=>a.urgency-b.urgency||new Date(a.arrival)-new Date(b.arrival));
+function lg(p,x){const e={t:new Date().toISOString(),x};if(p)p.history.push(e);S.log.push(x);if(S.log.length>40)S.log.shift()}
+function toast(t,er){const d=document.createElement('div');d.textContent=t;if(er)d.className='er';$('#t').append(d);setTimeout(()=>d.remove(),3200)}
+function freeRes(p){const b=find('beds',p.bed);if(b){b.status='Available';b.pid='';lg(p,'Bed '+b.id+' released')}const d=find('doctors',p.doctor);if(d){d.patient='';if(!S.patients.some(q=>q!=p&&q.doctor==d.id&&q.status!='Discharged'))d.status='Available';lg(p,dn(d.id)+' unassigned')}p.bed='';p.doctor=''}
+function assignDoc(p,d){if(p.doctor){const o=find('doctors',p.doctor);o.patient='';o.status='Available'}p.doctor=d.id;d.patient=p.id;d.status='Busy';lg(p,'Assigned '+d.name)}
+function allocBed(p,b){if(p.bed){const o=find('beds',p.bed);o.status='Available';o.pid=''}p.bed=b.id;b.pid=p.id;b.status='Occupied';lg(p,'Allocated bed '+b.id+' ('+b.ward+')')}
+const modal=h=>{$('#m').innerHTML='<div class="card" role="dialog" aria-modal="true">'+h+'</div>';$('#m').classList.add('on')},closeM=()=>$('#m').classList.remove('on');
+function form(title,fs,v,cb){v=v||{};modal(`<h3>${title}</h3><form id="f" novalidate>${fs.map(f=>{const val=v[f.k]??'',id='f_'+f.k;let i;if(f.t=='select')i=`<select id="${id}">${f.o.map(o=>`<option value="${esc(o[0])}"${o[0]==val?' selected':''}>${esc(o[1])}</option>`).join('')}</select>`;else if(f.t=='textarea')i=`<textarea id="${id}" rows="3">${esc(val)}</textarea>`;else i=`<input id="${id}" type="${f.t||'text'}" value="${esc(val)}"${f.ro?' readonly':''}>`;return`<label for="${id}">${f.l}${f.r?' *':''}</label>${i}`}).join('')}<div class="row" style="margin-top:16px"><button class="btn">Save</button><button type="button" class="btn o" data-a="close">Cancel</button></div></form>`);
+$('#f').onsubmit=e=>{e.preventDefault();const o={};for(const f of fs){o[f.k]=$('#f_'+f.k).value.trim();if(f.r&&!o[f.k])return toast(f.l+' is required','1');if(f.t=='number'&&o[f.k]&&(+o[f.k]<0||+o[f.k]>120))return toast(f.l+' must be between 0 and 120','1');if(f.k=='contact'&&!/^\d{10}$/.test(o[f.k]))return toast('Contact must be 10 digits','1')}cb(o);save();closeM();render()}}
+const tbl=(h,r,em)=>r.length?`<div class="tw"><table><thead><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${r.map(x=>`<tr>${x.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`:`<div class="empty">${em||'Nothing here yet.'}</div>`;
+const bars=(rows)=>{const mx=Math.max(1,...rows.map(r=>r[1]));return rows.map(r=>`<div class="bar"><em>${esc(r[0])}</em><div style="--c:${r[2]};width:${r[1]/mx*55}%"></div><span>${r[1]}</span></div>`).join('')};
+const stat=(l,v)=>`<div class="card stat"><b>${v}</b><span>${l}</span></div>`;
+const pForm=[{k:'name',l:'Full name',r:1},{k:'age',l:'Age',t:'number',r:1},{k:'gender',l:'Gender',t:'select',o:[['Male','Male'],['Female','Female'],['Other','Other']]},{k:'contact',l:'Contact number (10 digits)',r:1},{k:'symptoms',l:'Symptoms / reason for visit',t:'textarea',r:1},{k:'urgency',l:'Urgency category (assigned by staff)',t:'select',o:[[1,'1 – Critical'],[2,'2 – High'],[3,'3 – Moderate'],[4,'4 – Low']]},{k:'arrival',l:'Arrival date and time',t:'datetime-local',r:1},{k:'status',l:'Current status',t:'select',o:ST.map(s=>[s,s])}];
+let ui={q:'',f:'',hq:'',hid:'',bf:'',sch:'FCFS',res:{},wait:{},ds:0};
+const NAV=[['overview','Overview'],['patients','Patients'],['queue','Emergency Queue'],['doctors','Doctors'],['beds','Beds'],['treatment','Treatment & Discharge'],['history','Patient History'],['analytics','Analytics'],['os','OS Concepts Simulation'],['tech','Technical Concepts'],['settings','Settings']];
+const pages={};
+pages.overview=()=>{const P=S.patients,c=s=>P.filter(p=>p.status==s).length,q=prio(),rec=[...P].sort((a,b)=>new Date(b.arrival)-new Date(a.arrival)).slice(0,5);
+return`<div class="grid g3">${stat('Total patients',P.length)}${stat('Waiting',c('Waiting'))}${stat('Under treatment',c('Under Examination')+c('Treatment in Progress'))}${stat('Available doctors',S.doctors.filter(d=>d.status=='Available').length)}${stat('Available beds',S.beds.filter(b=>b.status=='Available').length)}${stat('Discharged',c('Discharged'))}</div>
+<div class="grid" style="margin-top:14px"><div class="card"><h3>Recent registrations</h3>${tbl(['ID','Name','Status'],rec.map(p=>[p.id,esc(p.name),bd(p.status)]))}</div>
+<div class="card"><h3>Emergency queue preview</h3>${tbl(['#','Name','Urgency'],q.slice(0,4).map((p,i)=>[i+1,esc(p.name),ub(p.urgency)]),'Queue is empty.')}</div>
+<div class="card"><h3>Doctor availability</h3>${tbl(['Doctor','Status'],S.doctors.map(d=>[esc(d.name),bd(d.status)]),'No doctors.')}</div>
+<div class="card"><h3>Bed availability</h3>${bars([['Available',S.beds.filter(b=>b.status=='Available').length,'#0f9d7a'],['Occupied',S.beds.filter(b=>b.status=='Occupied').length,'#d93025']])}</div>
+<div class="card"><h3>Patient status distribution</h3>${bars(ST.map(s=>[s,c(s),SC[s]]))}</div>
+<div class="card"><h3>Recent activity (stack, newest first)</h3>${[...S.log].reverse().slice(0,6).map(x=>`<div class="tl">${esc(x)}</div>`).join('')}</div></div>`};
+pages.patients=()=>{const q=ui.q.toLowerCase(),L=S.patients.filter(p=>(!ui.f||p.status==ui.f)&&(p.name.toLowerCase().includes(q)||p.id.toLowerCase().includes(q)));
+return`<div class="row"><button class="btn" data-a="addP">Register new patient</button><input id="sq" placeholder="Search by ID or name" value="${esc(ui.q)}" aria-label="Search patients"><select id="sf" aria-label="Filter by status"><option value="">All statuses</option>${ST.map(s=>`<option${ui.f==s?' selected':''}>${s}</option>`).join('')}</select></div>
+<div class="card">${tbl(['ID','Name','Age/Sex','Urgency','Status','Doctor','Bed','Actions'],L.map(p=>[p.id,esc(p.name),p.age+' / '+p.gender[0],ub(p.urgency),bd(p.status),esc(dn(p.doctor)),p.bed||'—',`<button class="btn s o" data-a="viewP" data-id="${p.id}">View</button> <button class="btn s o" data-a="editP" data-id="${p.id}">Edit</button> <button class="btn s d" data-a="delP" data-id="${p.id}">Delete</button>`]),'No patients match your search.')}</div>`};
+pages.queue=()=>{const q=prio();return`<div class="note warn">Educational demo of a <b>priority queue</b>. Not a real medical triage protocol — urgency is assigned manually for simulation.</div>
+<div class="row"><button class="btn" data-a="next">Process next patient</button><span style="color:var(--mut)">Order: urgency 1 first, then earliest arrival.</span></div>
+<div class="card">${tbl(['Position','ID','Name','Urgency','Arrival','Status'],q.map((p,i)=>[i+1,p.id,esc(p.name),ub(p.urgency),fmt(p.arrival),bd(p.status)]),'No patients are waiting.')}</div>`};
+pages.doctors=()=>`<div class="row"><button class="btn" data-a="addD">Add doctor</button></div><div class="card">${tbl(['ID','Name','Specialty','Contact','Status','Patient','Actions'],S.doctors.map(d=>[d.id,esc(d.name),esc(d.specialty),d.contact,bd(d.status),d.patient?esc(pn(d.patient)):'—',`<button class="btn s o" data-a="editD" data-id="${d.id}">Edit</button> <button class="btn s o" data-a="assignD" data-id="${d.id}">Assign</button> <button class="btn s o" data-a="togD" data-id="${d.id}">${d.status=='Unavailable'?'Mark available':'Mark unavailable'}</button>`]),'No doctors added.')}</div>`;
+pages.beds=()=>{const L=S.beds.filter(b=>!ui.bf||b.status==ui.bf);return`<div class="row"><button class="btn" data-a="addB">Add bed</button><select id="bf" aria-label="Filter beds"><option value="">All beds</option><option${ui.bf=='Available'?' selected':''}>Available</option><option${ui.bf=='Occupied'?' selected':''}>Occupied</option></select></div>
+${L.length?`<div class="grid g3">${L.map(b=>`<div class="card bed ${b.status=='Occupied'?'occ':''}"><h3>${b.id}</h3><div>${esc(b.ward)} · ${esc(b.type)}</div><p>${bd(b.status)}</p><div style="color:var(--mut);min-height:22px">${b.pid?esc(b.pid+' – '+pn(b.pid)):''}</div>${b.status=='Available'?`<button class="btn s" data-a="alloc" data-id="${b.id}">Allocate</button>`:`<button class="btn s o" data-a="rel" data-id="${b.id}">Release</button>`}</div>`).join('')}</div>`:'<div class="card empty">No beds in this view.</div>'}`};
+pages.treatment=()=>{const L=S.patients.filter(p=>p.status!='Discharged');return`<div class="note">Simulation records only. No medical advice or diagnosis is generated.</div><div class="card">${tbl(['ID','Name','Doctor','Bed','Status','Notes','Actions'],L.map(p=>[p.id,esc(p.name),esc(dn(p.doctor)),p.bed||'—',bd(p.status),p.notes.length,`<button class="btn s o" data-a="prog" data-id="${p.id}">Progress</button> <button class="btn s o" data-a="note" data-id="${p.id}">Add note</button> <button class="btn s o" data-a="recov" data-id="${p.id}">Recovered</button> <button class="btn s n" data-a="disch" data-id="${p.id}">Discharge</button>`]),'No active patients.')}</div>`};
+pages.history=()=>{const q=ui.hq.toLowerCase(),L=S.patients.filter(p=>p.name.toLowerCase().includes(q)||p.id.toLowerCase().includes(q)),p=find('patients',ui.hid)||(q&&L[0]);
+return`<div class="row"><input id="hq" placeholder="Search by patient ID or name" value="${esc(ui.hq)}" aria-label="Search history"></div><div class="grid"><div class="card">${tbl(['ID','Name',''],L.map(x=>[x.id,esc(x.name),`<button class="btn s o" data-a="hist" data-id="${x.id}">Open</button>`]),'No matching patients.')}</div>
+<div class="card">${p?`<h3>${esc(p.name)} (${p.id})</h3><p>Registered ${fmt(p.arrival)} · ${bd(p.status)} · Doctor: ${esc(dn(p.doctor))} · Bed: ${p.bed||'—'}</p><h3>Timeline</h3>${p.history.map(h=>`<div class="tl">${esc(h.x)}<br><small>${fmt(h.t)}</small></div>`).join('')}<h3>Treatment notes</h3>${p.notes.length?p.notes.map(n=>`<div class="tl">${esc(n.x)}<br><small>${fmt(n.t)}</small></div>`).join(''):'<div class="empty">No notes yet.</div>'}`:'<div class="empty">Select a patient to see their record history.</div>'}</div></div>`};
+pages.analytics=()=>{const P=S.patients,c=s=>P.filter(p=>p.status==s).length,days={};P.forEach(p=>{const k=new Date(p.arrival).toLocaleDateString('en-IN',{day:'numeric',month:'short'});days[k]=(days[k]||0)+1});const bo=S.beds.filter(b=>b.status=='Occupied').length;
+return`<div class="grid"><div class="card"><h3>Patient status distribution</h3>${bars(ST.map(s=>[s,c(s),SC[s]]))}</div><div class="card"><h3>Waiting vs treated</h3>${bars([['Waiting',c('Waiting'),'#b78500'],['Treated / active',P.length-c('Waiting')-c('Discharged'),'#0b8f8b'],['Discharged',c('Discharged'),'#6b7c8d']])}<p>Total registered: <b>${P.length}</b></p></div>
+<div class="card"><h3>Doctor availability</h3>${bars(['Available','Busy','Unavailable'].map(s=>[s,S.doctors.filter(d=>d.status==s).length,SC[s]]))}</div><div class="card"><h3>Bed occupancy</h3>${bars([['Occupied',bo,'#d93025'],['Available',S.beds.length-bo,'#0f9d7a']])}<p>Occupancy: <b>${S.beds.length?Math.round(bo/S.beds.length*100):0}%</b></p></div>
+<div class="card"><h3>Daily registrations</h3>${bars(Object.entries(days).map(e=>[e[0],e[1],'#2f6fed']))}</div></div>`};
+const TASKS=[['T1','Update bed register',0,4,3],['T2','Print shift report',1,3,1],['T3','Sync pharmacy stock',2,5,4],['T4','Back up records',3,2,2],['T5','Run billing summary',6,3,5]];
+function sched(alg){let t=0,done=[],out=[];while(done.length<TASKS.length){let r=TASKS.filter(x=>!done.includes(x)&&x[2]<=t);if(!r.length){const nx=Math.min(...TASKS.filter(x=>!done.includes(x)).map(x=>x[2]));out.push({id:'idle',s:t,e:nx});t=nx;continue}r.sort((a,b)=>alg=='FCFS'?a[2]-b[2]:a[4]-b[4]||a[2]-b[2]);const x=r[0];out.push({id:x[0],s:t,e:t+x[3],x});t+=x[3];done.push(x)}return out}
+const RES=['Doctor A','Doctor B','Ventilator','X-ray machine'],PR=['P1','P2','P3'];
+pages.os=()=>{const g=sched(ui.sch),run=g.filter(x=>x.x),tot=g[g.length-1].e,wt=run.map(r=>r.s-r.x[2]),ta=run.map(r=>r.e-r.x[2]),av=a=>(a.reduce((s,x)=>s+x,0)/a.length).toFixed(2),ds=ui.ds;
+const DS=['Start: P1 and P2 are idle.','P1 acquires the Ventilator.','P2 acquires the X-ray machine.','P1 requests the X-ray machine (held by P2) and waits.','P2 requests the Ventilator (held by P1) and waits. DEADLOCK: circular wait.','Recovery: X-ray machine is preempted from P2 and given to P1. P1 finishes and releases both; P2 can continue.'];
+const e=(a,b,c,d,dash)=>`<line x1="${a}" y1="${b}" x2="${c}" y2="${d}" stroke="${dash?'#d93025':'#0b8f8b'}" stroke-width="2.5" ${dash?'stroke-dasharray="6 4"':''} marker-end="url(#ar${dash?'r':'g'})"/>`;
+return`<div class="note warn">Conceptual OS simulations using fictional administrative tasks as “processes”. This is an analogy, not real scheduling of medical treatment.</div>
+<div class="card"><h3>A. CPU scheduling</h3><div class="row"><select id="sch" aria-label="Algorithm"><option value="FCFS"${ui.sch=='FCFS'?' selected':''}>First Come First Serve (FCFS)</option><option value="PRI"${ui.sch=='PRI'?' selected':''}>Priority (lower number = higher priority)</option></select></div>
+${tbl(['Task','Name','Arrival','Burst','Priority','Waiting','Turnaround'],run.map((r,i)=>[r.id,r.x[1],r.x[2],r.x[3],r.x[4],wt[i],ta[i]]))}<div class="gantt">${g.map(x=>`<div class="${x.id=='idle'?'idle':''}" style="width:${(x.e-x.s)*34}px">${x.id=='idle'?'idle':x.id}<br><small>${x.s}–${x.e}</small></div>`).join('')}</div><b>Average waiting: ${av(wt)} · Average turnaround: ${av(ta)}</b> (total time ${tot})</div>
+<div class="card" style="margin-top:14px"><h3>B. Resource allocation</h3><div class="row"><select id="rp" aria-label="Process">${PR.map(p=>`<option>${p}</option>`).join('')}</select><select id="rr" aria-label="Resource">${RES.map(p=>`<option>${p}</option>`).join('')}</select><button class="btn s" data-a="rreq">Request</button><button class="btn s o" data-a="rrel">Release</button></div>
+${tbl(['Resource','State','Held by','Waiting'],RES.map(r=>[r,bd(ui.res[r]?'Allocated':'Available',ui.res[r]?'#e8710a':'#0f9d7a'),ui.res[r]||'—',(ui.wait[r]||[]).join(', ')||'—']))}</div>
+<div class="card" style="margin-top:14px"><h3>C. Deadlock demonstration</h3><p>${DS[ds]}</p><svg viewBox="0 0 400 220" style="max-width:420px;width:100%" role="img" aria-label="Resource wait graph"><defs><marker id="arg" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0L8,4L0,8z" fill="#0b8f8b"/></marker><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0L8,4L0,8z" fill="#d93025"/></marker></defs>
+<circle cx="60" cy="110" r="30" fill="#2f6fed"/><text x="60" y="115" fill="#fff" text-anchor="middle" font-weight="700">P1</text><circle cx="340" cy="110" r="30" fill="#2f6fed"/><text x="340" y="115" fill="#fff" text-anchor="middle" font-weight="700">P2</text>
+<rect x="150" y="10" width="100" height="36" rx="6" fill="#0a2540"/><text x="200" y="33" fill="#fff" text-anchor="middle" font-size="12">Ventilator</text><rect x="150" y="174" width="100" height="36" rx="6" fill="#0a2540"/><text x="200" y="197" fill="#fff" text-anchor="middle" font-size="12">X-ray</text>
+${ds==1||ds==3||ds==4?e(155,38,82,92):''}${ds==2||ds==4||ds==5?'':''}${ds==2||ds==3||ds==4?e(245,182,318,128):''}${ds==3||ds==4?e(78,135,155,182,1):''}${ds==4?e(322,92,245,38,1):''}${ds==5?e(155,182,82,128)+e(245,38,318,92):''}</svg>
+<div class="row"><button class="btn s" data-a="dstep"${ds>=4?' disabled':''}>Next step</button><button class="btn s n" data-a="drec"${ds!=4?' disabled':''}>Recover (preempt)</button><button class="btn s o" data-a="dreset">Reset</button></div>
+<p style="font-size:13px;color:var(--mut)">Solid teal = resource held by process. Dashed red = process waiting for resource.</p>
+<div class="grid g3">${[['Mutual exclusion','Only one process can hold a resource at a time.'],['Hold and wait','A process holds one resource while waiting for another.'],['No preemption','Resources cannot be forcibly taken away.'],['Circular wait','P1 waits for P2 and P2 waits for P1.']].map(x=>`<div class="card"><b>${x[0]}</b><br><small>${x[1]}</small></div>`).join('')}</div></div>`};
+pages.tech=()=>{const c=(t,r)=>`<div class="card"><h3>${t}</h3>${r.map(x=>`<p><b>${x[0]}:</b> ${x[1]}</p>`).join('')}</div>`;return`<div class="note">EMERGIFY is a web demonstration of a project developed in C++. This website does not run the C++ code.</div><div class="grid">
+${c('Data structures',[['Priority queue','Orders emergency cases by staff-assigned urgency, then arrival time.'],['Linked list','Dynamic storage of patient records.'],['Queue','First-come-first-served administrative requests.'],['Stack','Recent activity history (newest first).'],['Vector / array','Doctor and bed records.'],['Searching','Find patients by ID or name.']])}
+${c('Object-oriented programming',[['Encapsulation','Patient and doctor data are private inside classes.'],['Inheritance','Doctor and Nurse inherit from Staff.'],['Polymorphism','Each staff type overrides shared virtual functions.'],['Abstraction','Simple functions hide internal details.'],['Classes','Patient, Doctor, Nurse, Staff, Bed, Treatment, HospitalManagementSystem, FileManager']])}
+${c('Operating systems',[['FCFS','Tasks run in order of arrival.'],['Priority scheduling','The task with the highest priority runs first.'],['Resource allocation','Doctors, beds and equipment are shared resources.'],['Deadlock','Processes wait on each other forever.'],['File management','Records are saved to and loaded from files.']])}</div>${oop()}`};
+const cd=s=>`<pre>${esc(s)}</pre>`;
+const oop=()=>{const pil=[['Encapsulation','Data members are private. Outside code can only use public getters and setters, and the setter validates the value first.',`class Patient {
+private:
+  string id, name;
+  int age;
+public:
+  Patient(string i, string n, int a);
+  string getName() const { return name; }
+  void setAge(int a) {
+    if (a > 0 && a < 120) age = a;   // validation
+  }
+};`],['Inheritance','Doctor and Nurse reuse the id and name of the Staff base class and add their own members.',`class Staff {
+protected:
+  string id, name;
+public:
+  Staff(string i, string n) : id(i), name(n) {}
+  virtual void showRole() const = 0;
+  virtual ~Staff() {}
+};
+class Doctor : public Staff {
+  string specialty;
+public:
+  void showRole() const override;
+};
+class Nurse : public Staff {
+  string ward;
+public:
+  void showRole() const override;
+};`],['Polymorphism','One base-class pointer can call different versions of showRole(). The correct one is chosen at run time through the virtual table.',`vector<Staff*> team;
+team.push_back(new Doctor("D-01", "Dr. Arora"));
+team.push_back(new Nurse("N-01", "Nurse Rita"));
+for (Staff* s : team)
+  s->showRole();   // Doctor or Nurse version`],['Abstraction','Staff users call a few simple functions. How the queue, files and records work inside stays hidden.',`class HospitalManagementSystem {
+public:
+  void registerPatient();
+  void processNextPatient();
+  void dischargePatient(string id);
+private:
+  priority_queue<Patient> emergencyQueue;
+  vector<Doctor> doctors;
+  vector<Bed> beds;
+  FileManager files;
+};`]];
+const more=[['Constructors and destructors','A constructor sets up an object. A destructor cleans up, for example deleting Staff objects created with new.',`Patient::Patient(string i, string n, int a)
+  : id(i), name(n), age(a) { patientCount++; }
+Patient::~Patient() { patientCount--; }`],['Operator overloading','Overloading operator&lt; lets std::priority_queue order patients by urgency, then arrival time.',`bool operator<(const Patient& o) const {
+  if (urgency != o.urgency)
+    return urgency > o.urgency;   // smaller number = more urgent
+  return arrival > o.arrival;     // earlier arrival first
+}`],['Static members','A static member belongs to the class, not to one object. It is shared by every Patient.',`class Patient {
+  static int patientCount;
+public:
+  static int getCount() { return patientCount; }
+};
+int Patient::patientCount = 0;`],['Composition (has-a)','HospitalManagementSystem owns its doctors, beds and patients. A Treatment object links one Patient, one Doctor and one Bed.',`class Treatment {
+  Patient* patient;
+  Doctor*  doctor;
+  Bed*     bed;
+  string   notes;
+};`],['File handling','FileManager saves and loads records with ofstream and ifstream so data survives after the program closes.',`void FileManager::savePatient(const Patient& p) {
+  ofstream out("patients.txt", ios::app);
+  out << p.getId() << "," << p.getName() << "\\n";
+}`],['Exception handling','Invalid input is reported with try, throw and catch instead of crashing.',`try {
+  if (age < 0) throw invalid_argument("Age cannot be negative");
+} catch (const exception& e) {
+  cout << e.what();
+}`]];
+const rows=[['Staff','Abstract base class for hospital staff','id, name, showRole() (pure virtual)'],['Doctor','Derived from Staff','specialty, availability, assigned patient'],['Nurse','Derived from Staff','ward, showRole()'],['Patient','Stores one patient record','id, name, age, urgency, status'],['Bed','Stores one bed','id, ward, type, occupied'],['Treatment','Links patient, doctor and bed','notes, progress status'],['HospitalManagementSystem','Controls all operations','priority queue, vectors, FileManager'],['FileManager','Saves and loads records','savePatient(), loadPatients()']];
+const qa=[['Why is the Staff destructor virtual?','So deleting a Doctor through a Staff pointer runs the Doctor destructor too, and nothing leaks.'],['What is a pure virtual function?','A function declared with = 0. It makes the class abstract, so only derived classes can be created.'],['Difference between overloading and overriding?','Overloading is same name with different parameters, resolved at compile time. Overriding is redefining a virtual function in a derived class, resolved at run time.'],['Why are data members private?','To protect data from invalid changes. Only validated methods can modify it.'],['Is-a versus has-a?','Doctor is-a Staff (inheritance). HospitalManagementSystem has-a list of Doctors (composition).']];
+return`<h2 style="margin:26px 0 8px">Object-oriented programming in detail</h2><div class="note">These are C++ snippets from the academic project, shown here for explanation. They are not executed by this website.</div>
+<div class="card"><h3>Class hierarchy</h3>${cd(`            Staff (abstract)
+            /             \\
+        Doctor            Nurse
+
+HospitalManagementSystem
+   |-- has many Patient
+   |-- has many Doctor, Bed
+   |-- has many Treatment
+   |-- uses FileManager`)}</div>
+<h3 style="margin:20px 0 8px">The four pillars</h3><div class="grid">${pil.map(x=>`<div class="card"><h3>${x[0]}</h3><p>${x[1]}</p>${cd(x[2])}</div>`).join('')}</div>
+<h3 style="margin:20px 0 8px">More OOP features used</h3><div class="grid">${more.map(x=>`<div class="card"><h3>${x[0]}</h3><p>${x[1]}</p>${cd(x[2])}</div>`).join('')}</div>
+<div class="card" style="margin-top:14px"><h3>Classes at a glance</h3>${tbl(['Class','Role','Key members'],rows)}</div>
+<h3 style="margin:20px 0 8px">Likely viva questions</h3><div class="grid">${qa.map(x=>`<div class="card"><b>${x[0]}</b><p style="color:var(--mut)">${x[1]}</p></div>`).join('')}</div>`};
+pages.settings=()=>`<div class="card"><h3>Settings</h3><p>Demo login: <b>staff</b> / <b>emergify123</b></p><p>Data is stored in this browser only (local storage).</p><button class="btn d" data-a="reset">Reset demo data</button></div>`;
+const hashes=()=>location.hash.slice(1)||'landing';
+function landing(){return`<header class="hero"><div class="wrap"><nav><div class="logo"><i>+</i>EMERGIFY</div><button class="btn" data-a="enter">Enter dashboard</button></nav><h1>Smarter Emergency Management Starts Here.</h1><p>EMERGIFY organises emergency patient records, doctors, beds and hospital resources in one clear dashboard. Smarter Care, Faster Response.</p><p style="margin-top:24px"><button class="btn" data-a="enter">Enter dashboard</button></p><small style="color:#8fb0c9">Smart Emergency Hospital Management System · College simulation</small></div></header>
+<section class="sec"><div class="wrap"><h2>What it does</h2><div class="grid">${[['Patient management','Register, search and update fictional patient records.'],['Emergency priority queue','Higher urgency is served first; ties go by arrival.'],['Doctor management','Track specialties, availability and assignments.'],['Bed allocation','Allocate and release beds across wards.'],['Treatment tracking','Update progress, add notes and discharge.'],['Hospital analytics','Charts that update as records change.']].map(f=>`<div class="card"><h3>${f[0]}</h3><span style="color:var(--mut)">${f[1]}</span></div>`).join('')}</div></div></section>
+<section class="sec" style="padding-top:0"><div class="wrap"><h2>Concepts demonstrated</h2><div class="grid"><div class="card"><h3>Data structures</h3>Priority queue, linked list, queue, stack, vector and searching.</div><div class="card"><h3>OOP</h3>Encapsulation, inheritance, polymorphism and abstraction.</div><div class="card"><h3>Operating systems</h3>FCFS and priority scheduling, resource allocation and deadlock.</div></div><div class="note warn">Educational simulation with fictional data. Not a clinical decision-making tool or real medical triage.</div></div></section>`}
+function login(){return`<div class="wrap" style="max-width:420px;padding-top:8vh"><div class="logo" style="margin-bottom:16px"><i>+</i>EMERGIFY</div><form class="card" id="lf"><h2>Staff login</h2><div class="note warn">Demo login for a college presentation. Not secure hospital authentication.</div><label for="u">Username</label><input id="u" value="staff" autocomplete="off"><label for="pw">Password</label><input id="pw" type="password" value="emergify123"><p><button class="btn">Log in</button> <button type="button" class="btn o" data-a="home">Back</button></p><small>Demo: staff / emergify123</small></form></div>`}
+function render(){const r=hashes(),a=$('#app');closeM();if(r=='landing'){a.innerHTML=landing();return}if(r=='login'||!auth){a.innerHTML=login();$('#lf').onsubmit=e=>{e.preventDefault();if($('#u').value=='staff'&&$('#pw').value=='emergify123'){auth=true;try{localStorage.setItem('emergify_auth','1')}catch(x){}location.hash='overview';toast('Logged in')}else toast('Invalid demo credentials','1')};return}
+const pg=pages[r]?r:'overview',title=(NAV.find(n=>n[0]==pg)||[])[1];
+a.innerHTML=`<div class="shell"><nav class="side" id="sd" aria-label="Main"><div class="logo"><i>+</i>EMERGIFY</div>${NAV.map(n=>`<a href="#${n[0]}" class="${n[0]==pg?'on':''}">${n[1]}</a>`).join('')}<a data-a="logout" tabindex="0" role="button">Logout</a></nav><main class="main"><div class="top"><div><button class="btn s o menu" data-a="menu" aria-label="Menu">☰</button> <b style="font-size:22px">${title}</b><div style="color:var(--mut);font-size:13px">Smarter Care, Faster Response.</div></div><div id="clk" style="color:var(--mut)"></div></div>${pages[pg]()}</main></div>`;
+const bind=(i,k)=>{const el=$('#'+i);if(el)el.oninput=el.onchange=()=>{ui[k]=el.value;const p=el.selectionStart;render();const n=$('#'+i);if(n&&n.tagName=='INPUT'){n.focus();n.setSelectionRange(p,p)}}};bind('sq','q');bind('sf','f');bind('bf','bf');bind('hq','hq');bind('sch','sch');tick()}
+const tick=()=>{const c=$('#clk');if(c)c.textContent=new Date().toLocaleString('en-IN',{dateStyle:'full',timeStyle:'medium'})};setInterval(tick,1000);
+const A={close:closeM,enter:()=>location.hash=auth?'overview':'login',home:()=>location.hash='landing',menu:()=>$('#sd').classList.toggle('on'),
+logout:()=>{auth=false;try{localStorage.removeItem('emergify_auth')}catch(e){}location.hash='landing';toast('Logged out')},
+reset:()=>{if(confirm('Reset all demo data?')){S=seed();save();render();toast('Demo data reset')}},
+addP:()=>form('Register new patient',pForm,{arrival:loc(new Date()),urgency:3,status:'Waiting',gender:'Male'},o=>{const p={id:'P-'+(++S.n.p),...o,age:+o.age,urgency:+o.urgency,arrival:new Date(o.arrival).toISOString(),doctor:'',bed:'',notes:[],history:[]};lg(p,'Registered with status '+o.status);S.patients.push(p);toast('Patient '+p.id+' registered')}),
+editP:id=>{const p=find('patients',id);form('Edit '+p.id,pForm,{...p,arrival:loc(p.arrival)},o=>{if(o.status!=p.status)lg(p,'Status changed to '+o.status);Object.assign(p,o,{age:+o.age,urgency:+o.urgency,arrival:new Date(o.arrival).toISOString()});toast('Patient updated')})},
+delP:id=>{if(!confirm('Delete patient '+id+'?'))return;const p=find('patients',id);freeRes(p);S.patients=S.patients.filter(x=>x!=p);save();render();toast('Patient deleted')},
+viewP:id=>{const p=find('patients',id);modal(`<h3>${esc(p.name)} (${p.id})</h3><p>${p.age} / ${p.gender} · ${p.contact}<br>Reason: ${esc(p.symptoms)}<br>Urgency ${ub(p.urgency)} Status ${bd(p.status)}<br>Doctor: ${esc(dn(p.doctor))} · Bed: ${p.bed||'—'}<br>Arrived: ${fmt(p.arrival)}</p><b>Record history</b>${p.history.map(h=>`<div class="tl">${esc(h.x)}<br><small>${fmt(h.t)}</small></div>`).join('')}<p><button class="btn o" data-a="close">Close</button></p>`)},
+next:()=>{const p=prio()[0];if(!p)return toast('No patients waiting','1');p.status='Under Examination';lg(p,'Dequeued from priority queue; status Under Examination');const d=S.doctors.find(d=>d.status=='Available'),b=S.beds.find(b=>b.status=='Available');if(d)assignDoc(p,d);if(b)allocBed(p,b);save();render();toast('Processing '+p.name+(d?' with '+d.name:' (no doctor free)'))},
+addD:()=>form('Add doctor',[{k:'name',l:'Name',r:1},{k:'specialty',l:'Specialty',r:1},{k:'contact',l:'Contact number (10 digits)',r:1}],{},o=>{S.doctors.push({id:'D-0'+(++S.n.d),...o,status:'Available',patient:''});toast('Doctor added')}),
+editD:id=>{const d=find('doctors',id);form('Edit '+id,[{k:'name',l:'Name',r:1},{k:'specialty',l:'Specialty',r:1},{k:'contact',l:'Contact number (10 digits)',r:1}],d,o=>{Object.assign(d,o);toast('Doctor updated')})},
+togD:id=>{const d=find('doctors',id);if(d.patient)return toast('Doctor has an assigned patient','1');d.status=d.status=='Unavailable'?'Available':'Unavailable';save();render()},
+assignD:id=>{const d=find('doctors',id);if(d.status!='Available')return toast('Doctor is not available','1');const L=S.patients.filter(p=>!p.doctor&&p.status!='Discharged'&&p.status!='Recovered');if(!L.length)return toast('No patient needs a doctor','1');form('Assign '+d.name,[{k:'p',l:'Patient',t:'select',o:L.map(p=>[p.id,p.id+' – '+p.name])}],{},o=>{assignDoc(find('patients',o.p),d);toast('Doctor assigned')})},
+addB:()=>form('Add bed',[{k:'ward',l:'Ward name',r:1},{k:'type',l:'Bed type',t:'select',o:[['Standard','Standard'],['ICU','ICU']]}],{},o=>{S.beds.push({id:'B-0'+(++S.n.b),...o,status:'Available',pid:''});toast('Bed added')}),
+alloc:id=>{const b=find('beds',id),L=S.patients.filter(p=>!p.bed&&p.status!='Discharged');if(!L.length)return toast('No patient needs a bed','1');form('Allocate '+id,[{k:'p',l:'Patient',t:'select',o:L.map(p=>[p.id,p.id+' – '+p.name])}],{},o=>{allocBed(find('patients',o.p),b);toast('Bed allocated')})},
+rel:id=>{const b=find('beds',id),p=find('patients',b.pid);if(!confirm('Release bed '+id+'?'))return;if(p){lg(p,'Bed '+id+' released');p.bed=''}b.status='Available';b.pid='';save();render();toast('Bed released')},
+prog:id=>{const p=find('patients',id);form('Update progress',[{k:'status',l:'Status',t:'select',o:ST.slice(0,4).map(s=>[s,s])}],p,o=>{lg(p,'Status changed to '+o.status);p.status=o.status;toast('Progress updated')})},
+note:id=>{const p=find('patients',id);form('Add treatment note (simulation)',[{k:'x',l:'Note',t:'textarea',r:1}],{},o=>{p.notes.push({t:new Date().toISOString(),x:o.x});lg(p,'Note added');toast('Note saved')})},
+recov:id=>{const p=find('patients',id);p.status='Recovered';lg(p,'Marked as Recovered');save();render();toast('Marked as recovered')},
+disch:id=>{const p=find('patients',id);if(!confirm('Discharge '+p.name+'? Bed and doctor will be released.'))return;freeRes(p);p.status='Discharged';lg(p,'Discharged; record saved');save();render();toast('Patient discharged')},
+hist:id=>{ui.hid=id;render()},
+rreq:()=>{const p=$('#rp').value,r=$('#rr').value;if(ui.res[r]==p)return toast(p+' already holds '+r,'1');if(ui.res[r]){(ui.wait[r]=ui.wait[r]||[]);if(!ui.wait[r].includes(p))ui.wait[r].push(p);toast(p+' is waiting for '+r)}else{ui.res[r]=p;toast(r+' allocated to '+p)}render()},
+rrel:()=>{const p=$('#rp').value,r=$('#rr').value;if(ui.res[r]!=p)return toast(p+' does not hold '+r,'1');const n=(ui.wait[r]||[]).shift();if(n)ui.res[r]=n;else delete ui.res[r];toast(r+' released');render()},
+dstep:()=>{ui.ds++;render()},drec:()=>{ui.ds=5;render()},dreset:()=>{ui.ds=0;render()}};
+document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(t&&A[t.dataset.a]){A[t.dataset.a](t.dataset.id);if(!['addP','editP','viewP','addD','editD','assignD','addB','alloc','prog','note','menu','close'].includes(t.dataset.a)){save();}}else if(e.target.id=='m')closeM()});
+document.addEventListener('keydown',e=>{if(e.key=='Escape')closeM();if(e.key=='Enter'&&e.target.dataset&&e.target.dataset.a=='logout')A.logout()});
+window.addEventListener('hashchange',render);render();
+</script></body></html>
